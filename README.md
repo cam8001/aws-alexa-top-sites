@@ -64,6 +64,58 @@ Results will be:
 
 5. Get the IAM access keys from the [IAM user management console page](https://console.aws.amazon.com/iam/home#/users) of the Amazon AWS portal.
 
+### Anatomy of an Amazon ATS TopSites result
+
+The results from the ATS service don't have an obvious meaning at first glance
+(at least not to me). I've documented them here for posterity.
+
+```xml
+ <aws:TopSites>
+  <!-- Country in which the sites in this result have been grouped. -->
+  <aws:Country>
+    <aws:CountryName>Australia</aws:CountryName>
+    <aws:CountryCode>AU</aws:CountryCode>
+    <!-- Total number of sites Alexa is tracking in this country -->
+    <aws:TotalSites>22052</aws:TotalSites>
+    <!-- List of sites in result. -->
+    <aws:Sites>
+      <aws:Site>
+        <aws:DataUrl>google.com</aws:DataUrl>
+        <aws:Country>
+          <!-- Rank within country (eg 10 = 10th most popular site in country). -->
+          <aws:Rank>1</aws:Rank>
+          <!-- -->
+          <aws:Reach>
+            <!--
+            Out of every million users on the internet today, how many visited
+            this site?
+            @see https://forums.aws.amazon.com/message.jspa?messageID=578614
+            -->
+            <aws:PerMillion>801700</aws:PerMillion>
+          </aws:Reach>
+          <aws:PageViews>
+            <!--
+            Out of every million pageviews by all users on the internet
+            today, how many were made to this site?
+            -->
+            <aws:PerMillion>267200</aws:PerMillion>
+            <!--
+            What is the average (mean) number of pageviews to this site, per
+            user, per day?
+            -->
+            <aws:PerUser>14.94</aws:PerUser>
+          </aws:PageViews>
+        </aws:Country>
+        <!-- Rank within whole world.  -->
+        <aws:Global>
+          <aws:Rank>1</aws:Rank>
+        </aws:Global>
+      </aws:Site>
+    </aws:Sites>
+  </aws:Country>
+</aws:TopSites>
+```
+
 ## References
 [1] https://docs.aws.amazon.com/AlexaTopSites/latest/
 
